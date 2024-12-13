@@ -7,6 +7,9 @@ public class Hole : MonoBehaviour
     //どのタグ名が書いてあるボールを目的とするか
     public string targetTag;
 
+    //目的のボールがあるかどうか
+    bool isHolding;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +20,30 @@ public class Hole : MonoBehaviour
     void Update()
     {
         
+    }
+
+    //目的のボールがあるかないかの結果を示す
+    public bool IsHolding()
+    {
+        return isHolding;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == targetTag)
+        {
+            //目的の相手が入ってきたらフラグを立てる
+            isHolding = true;
+        }    
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == targetTag)
+        {
+            //目的の相手が脱出してしまったらフラグを降ろす
+            isHolding = false;
+        }
     }
 
     void OnTriggerStay(Collider other)
