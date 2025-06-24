@@ -15,18 +15,29 @@ public class GravityController : MonoBehaviour
     {
         Vector3 vector = new Vector3();
 
-        //キーの入力を検知しベクトルを設定
-        vector.x = Input.GetAxis("Horizontal");
-        vector.z = Input.GetAxis("Vertical");
-
-        //高さ方向の判定はキーのzとする
-        if (Input.GetKey("z"))
+        //スマホ上で起動しているかどうかを判断
+        if (Application.isMobilePlatform)
         {
-            vector.y = 1.0f;
+            //加速度センサーが拾った値を変数vectorの値とする
+            vector.x = Input.acceleration.x;
+            vector.z = Input.acceleration.y;
+            vector.y = Input.acceleration.z;
         }
-        else
-        {
-            vector.y = -1.0f;
+        else //OSがスマホのものではないとした場合キーボード操作
+        { 
+            //キーの入力を検知しベクトルを設定
+            vector.x = Input.GetAxis("Horizontal");
+            vector.z = Input.GetAxis("Vertical");
+
+            //高さ方向の判定はキーのzとする
+            if (Input.GetKey("z")) //ひっくり返している
+            {
+                vector.y = 1.0f;
+            }
+            else
+            {
+                vector.y = -1.0f;
+            }
         }
 
         //シーンの重力を入力ベクトルの方向に合わせて変化
