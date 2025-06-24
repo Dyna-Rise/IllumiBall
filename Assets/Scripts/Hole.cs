@@ -6,7 +6,7 @@ public class Hole : MonoBehaviour
 {
     //どのボールを吸い寄せるかをタグで指定
     public string targetTag;
-    bool isHolding;
+    bool isHolding;　//目的のボールがゴールしたというフラグ
 
     //ボールが入っているかtrueかfalseかで返す
     public bool IsHolding()
