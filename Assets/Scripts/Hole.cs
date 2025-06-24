@@ -6,6 +6,32 @@ public class Hole : MonoBehaviour
 {
     //どのボールを吸い寄せるかをタグで指定
     public string targetTag;
+    bool isHolding;
+
+    //ボールが入っているかtrueかfalseかで返す
+    public bool IsHolding()
+    {
+        return isHolding;
+    }
+
+    //目的物が入ったらフラグON
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == targetTag)
+        {
+            isHolding = true;
+        }
+    }
+
+    //目的物が抜けたらフラグOFF
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == targetTag)
+        {
+            isHolding = false;
+        }
+    }
+
 
     private void OnTriggerStay(Collider other)
     {
